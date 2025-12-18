@@ -9,8 +9,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
-import static com.algaworks.algasensors.temperature.monitoring.infrastructure.rabbitmq.RabbitMQConfig.ALERTING_QUEUE;
-import static com.algaworks.algasensors.temperature.monitoring.infrastructure.rabbitmq.RabbitMQConfig.PROCESS_TEMPERATURE_QUEUE;
+import static com.algaworks.algasensors.temperature.monitoring.infrastructure.rabbitmq.RabbitMQConfig.*;
 
 @Slf4j
 @Component
@@ -21,7 +20,7 @@ public class RabbitMQListener {
     private final SensorAlertService sensorAlertService;
 
 
-    @RabbitListener(queues = PROCESS_TEMPERATURE_QUEUE, concurrency = "2-3")
+    @RabbitListener(queues = QUEUE_PROCESS_TEMPERATURE, concurrency = "2-3")
     public void handleProcessTemperature(@Payload TemperatureLogData temperatureLogData) {
         log.info("Processing received: sensorId={}, temperature={}", temperatureLogData.getSensorId(), temperatureLogData.getValue());
         temperatureMonitoringService.processTemperatureReading(temperatureLogData);
