@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
 
+import static java.lang.Boolean.TRUE;
+
 @Data
 @Builder
 @Entity
@@ -25,4 +27,7 @@ public class SensorMonitoring {
     private OffsetDateTime updatedAt;
     private Boolean enabled;
 
+    public boolean isEnabled() {
+        return TRUE.equals(enabled);
+    }
 }
